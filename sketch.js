@@ -1,6 +1,7 @@
 var Dog,HappyDog;
 var database;
-var foodS,foodStock;
+var foodS = 20,foodStock;
+
 
 function preload()
 {
@@ -10,7 +11,7 @@ function preload()
 
 function setup() {
   createCanvas(500, 500);
-  database = firebase.database;
+  database = firebase.database();
   foodStock = database.ref('Food');
   foodStock.on("value",readStock);
  Dog = createSprite(250,350,5,5);
@@ -27,6 +28,10 @@ background(46, 139, 87);
     Dog.addImage(HAPPYDOG);
   }
 drawSprites();
+fill("black");
+textSize(15);
+text("Press Up Arrow key to feed spot",140,25);
+text("Food Remaining = "+foodS,250,250);
 }
 
 function readStock(data){
@@ -34,6 +39,7 @@ function readStock(data){
 }
 
 function writeStock(x){
+  
   if(x<=0){
     x=0;
   }
